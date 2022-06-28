@@ -5,48 +5,47 @@
       <img
         src="../assets/01.jpg"
         alt=""
-        @mouseover="mouseFn(1)"
+        @mouseover="getUrl(1)"
         @click="clickFn(1, $event)"
       />
       <img
         src="../assets/02.jpg"
         alt=""
-        @mouseover="mouseFn(2)"
+        @mouseover="getUrl(2)"
         @click="clickFn(2, $event)"
       />
       <img
         src="../assets/03.jpg"
         alt=""
-        @mouseover="mouseFn(3)"
+        @mouseover="getUrl(3)"
         @click="clickFn(3, $event)"
       />
     </div>
     <div class="show">
       <h3>图片预览区</h3>
-      <img v-bind:src="currentImg" alt="" style="width: 600px; height: auto" />
+      <img :src="currentUrl" alt="" style="width: 600px; height: auto" />
     </div>
     <div></div>
   </div>
 </template>
 
 <script>
-import Imgurl01 from '../assets/01.jpg';
-import Imgurl02 from '../assets/02.jpg';
-import Imgurl03 from '../assets/03.jpg';
+import imgUrl01 from '../assets/01.jpg';
+import imgUrl02 from '../assets/02.jpg';
+import imgUrl03 from '../assets/03.jpg';
 export default {
-  name: 'Imageurl',
   data() {
     return {
-      currentImg: Imgurl01,
+      currentUrl: imgUrl01,
+      imageurl: { 1: imgUrl01, 2: imgUrl02, 3: imgUrl03 },
     };
   },
   methods: {
-    mouseFn(index) {
-      this.currentImg = { 1: Imgurl01, 2: Imgurl02, 3: Imgurl03 }[index];
+    getUrl(index) {
+      this.currentUrl = this.imageurl[index];
     },
-    clickFn(val, e) {
-      console.log(e.target);
-      alert(`第${val}图片,地址${e.target.src}`);
+    clickFn(index, event) {
+      alert(`你点击了第${index}-- and --${event.target.src}`);
     },
   },
 };
