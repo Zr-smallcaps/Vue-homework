@@ -7,7 +7,7 @@
         :key="index"
         @click="changeFn(index)"
       >
-        {{item}}
+        {{ item }}
       </li>
     </ul>
   </div>
