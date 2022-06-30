@@ -58,7 +58,7 @@ export default {
   methods: {
     buy(index) {
       this.arr[index]["count"]++;
-    }
+    },
   },
   computed: {
     allPrice() {
