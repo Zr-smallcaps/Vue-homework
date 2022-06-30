@@ -99,6 +99,7 @@ export default {
         name: this.name,
         age: this.age,
         sex: this.sex,
+        flag: true,
       });
       this.name = '';
       this.age = 0;
