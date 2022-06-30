@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="add">添加</button>
+    <ul>
+      <!-- :key="item" -->
+      <li v-for="item in list1">{{item}}</li>
+    </ul>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        // list: [1, 2, 3, 4],
+        list1: ['老大', '老二', '老三']
+      },
+      methods: {
+        add() {
+          // this.list.unshift(Math.random())
+          // this.list1.push('新来的')
+          this.list1.splice(1, 0, '新来的')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
