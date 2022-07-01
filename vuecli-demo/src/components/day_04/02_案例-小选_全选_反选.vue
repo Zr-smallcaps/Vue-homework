@@ -1,12 +1,12 @@
 <template>
   <div>
     <span>全选:</span>
-    <input type="checkbox" v-model="isAll"/>
+    <input type="checkbox" v-model="isAll" />
     <button @click="btn">反选</button>
     <ul>
       <li v-for="(item, index) in arr" :key="index">
-        <input type="checkbox" v-model="item.c"/>
-        <span>{{item.name}}</span>
+        <input type="checkbox" v-model="item.c" />
+        <span>{{ item.name }}</span>
       </li>
     </ul>
   </div>
@@ -38,18 +38,18 @@ export default {
   },
   methods: {
     btn() {
-      this.arr.forEach(item => item.c = !item.c)
-    }
+      this.arr.forEach((item) => (item.c = !item.c));
+    },
   },
   computed: {
     isAll: {
       set(val) {
-        this.arr.forEach(item => item.c = val)
+        this.arr.forEach((item) => (item.c = val));
       },
       get() {
-        return this.arr.every(item => item.c === true)
-      }
-    }
-  }
+        return this.arr.every((item) => item.c === true);
+      },
+    },
+  },
 };
 </script>
