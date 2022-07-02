@@ -75,8 +75,8 @@ export default {
       this.list[val - 1].count++;
     },
     clearChange() {
-      this.list.forEach(ele => {
-        ele.c = false;
+      this.list = this.list.filter((item, index) => {
+        return !item.flag;
       });
     },
     clear() {

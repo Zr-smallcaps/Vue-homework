@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     subNum(val) {
-      let index = this.list.findIndex(ele => ele.id === val);
+      let index = this.list.findIndex((ele) => ele.id === val);
       this.list[index].num--;
 
       if (this.list[index].num == 0) {
@@ -60,21 +60,16 @@ export default {
       }
     },
     del(val) {
-      let index = this.list.findIndex(ele => ele.id === val);
-
+      let index = this.list.findIndex((ele) => ele.id === val);
       // 删除按钮 - 得到索引, 删除数组里元素
       this.list.splice(index, 1);
     },
     delCheck() {
-      // this.list.forEach(item => {
-      //   if (item.flag) {
-      //     let index = this.list.findIndex(ele => {
-      //       return ele.id;
-      //     });
-      //     console.log(index);
-      //     this.list.splice(index, 1);
-      //   }
-      // });
+      this.list.forEach((item, index) => {
+        if (item.flag) {
+          this.del(item.id);
+        }
+      });
     },
     delEvery() {
       this.list = [];
@@ -83,12 +78,12 @@ export default {
   computed: {
     isAll: {
       get() {
-        return this.list.every(item => {
+        return this.list.every((item) => {
           return item.flag;
         });
       },
       set(val) {
-        this.list.forEach(item => {
+        this.list.forEach((item) => {
           item.flag = val;
         });
       },

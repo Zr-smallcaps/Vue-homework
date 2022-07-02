@@ -16,7 +16,7 @@
       </select>
     </div>
     <div>
-      <button @click="isShow1 ? changeup() : changeFn()">添加/修改</button>
+      <button @click="isShow1 ? changeup() : changeFn()">{isShow1 ? 添加:修改}</button>
     </div>
     <div>
       <table border="1" cellpadding="10" cellspacing="0">
