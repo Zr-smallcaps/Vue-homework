@@ -44,11 +44,11 @@ export default {
   methods: {
     change(val) {
       this.isSel = val;
-      this.$emit("fliterdata", val)
+      this.$emit("fliterdata", val);
     },
     clear() {
-      this.$emit("clear")
-    }
+      this.$emit("clear");
+    },
   },
 };
 </script>
