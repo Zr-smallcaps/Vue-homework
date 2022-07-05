@@ -1,77 +1,103 @@
 <template>
-  <section class="todoapp">
-    <!-- 除了驼峰, 还可以使用-转换链接 -->
-    <TodoHeader @add="addFn"></TodoHeader>
-    <TodoMain :list="showList" @del="delFn"></TodoMain>
-    <TodoFooter
-      :count="count"
-      @fliterdata="fliterdataFn"
-      @clear="clearFn"
-    ></TodoFooter>
-  </section>
+    <div id="app">
+        <Main
+            :list="list"
+            @del="delFn"
+            @detail="detailFn"
+        ></Main>
+        <AddBook
+            v-if="isShow"
+            @add="addFn"
+            ref="addbook"
+        ></AddBook>
+        <div style="margin: 40px auto">
+            <input
+                type="text"
+                style="width: 220px"
+                placeholder="搜索-书本名称"
+                @keydown.enter="enterFn"
+                v-model="bookname"
+            />
+
+            <button
+                style="margin-top: 20px"
+                @click="isShow = !isShow"
+            >
+                新增({{ isShow ? "隐藏" : "显示" }})
+            </button>
+        </div>
+    </div>
 </template>
 
 <script>
-import TodoHeader from "./components/TodoHeader";
-import TodoMain from "./components/TodoMain";
-import TodoFooter from "./components/TodoFooter";
+import Main from "./components/Main";
+import AddBook from "./components/AddBook";
 export default {
-  data() {
-    return {
-      list: JSON.parse(localStorage.getItem("list")) || [],
-      getSel: "all",
-    };
-  },
-  components: {
-    TodoHeader,
-    TodoMain,
-    TodoFooter,
-  },
-  methods: {
-    addFn(val) {
-      const id = this.list[this.list.length - 1]
-        ? this.list[this.list.length - 1].id + 1
-        : 100;
-      this.list.push({
-        name: val,
-        isDone: false,
-        id,
-      });
+    data () {
+        return {
+            list: [],
+            bookName: '',
+            isShow: false,
+        };
     },
-    delFn(id) {
-      const index = this.list.findIndex((ele) => ele.id == id);
-      this.list.splice(index, 1);
+    components: {
+        AddBook,
+        Main,
     },
-    fliterdataFn(val) {
-      this.getSel = val;
+    created () {
+        this.getList();
     },
-    clearFn() {
-      this.list.forEach((ele) => (ele.isDone = false));
+    methods: {
+        addFn (obj) {
+            this.$refs.addbook.disabled = true;
+            this.$axios({
+                url: "/api/addbook",
+                method: "POST",
+                data: {
+                    ...obj,
+                    appkey: "7250d3eb-18e1-41bc-8bb2-11483665535a",
+                },
+            }).then((res) => {
+                this.$refs.addbook.disabled = false;
+                this.$refs.addbook.clear();
+                alert(res.data.msg);
+                if (res.data.status == 200 || res.data.status == 201) {
+                    this.getList();
+                }
+            });
+        },
+        detailFn (id) {
+            this.$axios({
+                url: "/api/getbooks",
+                params: { id },
+            }).then((res) => {
+                const info = res.data.data && res.data.data[0];
+                alert(
+                    `作者：${info.author}; 出版社：${info.publisher}; 书名：${info.bookname}`
+                );
+            });
+        },
+        enterFn () {
+            const params = {};
+            this.bookname ? (params.bookname = this.bookname) : "";
+            this.getList(params);
+        },
+        getList (params = {}) {
+            this.$axios({
+                url: "/api/getbooks",
+                params: params,
+            }).then((res) => {
+                this.list = res.data.data;
+            });
+        },
+        delFn (id) {
+            this.$axios({
+                url: "/api/delbook",
+                params: { id },
+            }).then(() => {
+                this.getList();
+            });
+        },
     },
-  },
-  computed: {
-    count() {
-      return this.list.filter((ele) => !ele.isDone).length;
-    },
-    showList() {
-      if (this.getSel == "no") {
-        return this.list.filter((ele) => !ele.isDone);
-      } else if (this.getSel == "yes") {
-        return this.list.filter((ele) => ele.isDone);
-      } else {
-        return this.list;
-      }
-    },
-  },
-  watch: {
-    list: {
-      deep: true,
-      handler(val) {
-        localStorage.setItem("list", JSON.stringify(val || []));
-      },
-    },
-  },
 };
 </script>
-
-<style></style>
