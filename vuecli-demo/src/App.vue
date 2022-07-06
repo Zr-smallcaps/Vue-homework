@@ -1,45 +1,41 @@
 <template>
     <div>
-        <MyHeader title="购物车"></MyHeader>
-        <div class="main">
-            <MyGoods
-                v-for="obj in list"
-                :key="obj.id"
-                :gObj="obj"
-            ></MyGoods>
-        </div>
-        <MyFooter></MyFooter>
+        <UseTable>
+            <template v-slot:name="scope">
+                <input
+                    type="text"
+                    v-model="scope.row.name"
+                >
+            </template>
+            <template v-slot:age="scope">
+                <input
+                    type="text"
+                    v-model="scope.row.age"
+                >
+            </template>
+            <template v-slot:toux="scope">
+                <div v-if="scope.row.type == 0">
+                    <a href="scope.row.headImgUrl">{{ scope.row.headImgUrl }}</a>
+                </div>
+                <div v-if="scope.row.type == 1">
+                    <img :src="scope.row.headImgUrl" alt="" width="40px">
+                </div>
+                <div v-if="scope.row.type == 2">
+                    {{ scope.row.headImgUrl }}
+                </div>
+            </template>
+        </UseTable>
     </div>
 </template>
 
 <script>
-import MyHeader from "./components/day_05/MyHeader"
-import MyGoods from "./components/day_05/MyGoods"
-import MyFooter from "./components/day_05/MyFooter"
+import UseTable from "./components/day_06/UseTable"
 export default {
-    data () {
-        return {
-            list: [],
-        }
-    },
     components: {
-        MyHeader,
-        MyGoods,
-        MyFooter,
+        UseTable,
     },
-    created () {
-        this.$axios({
-            url: "/api/cart"
-        }).then(res => {
-            this.list = res.data.list
-        })
-    }
 }
 </script>
 
-<style scoped>
-.main {
-    padding-top: 45px;
-    padding-bottom: 50px;
-}
+<style>
 </style>
