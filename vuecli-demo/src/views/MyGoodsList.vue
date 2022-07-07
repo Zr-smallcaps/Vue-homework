@@ -16,6 +16,23 @@
                     {{ scope.row.tags }}
                 </td> -->
                 <td>
+                    <input
+                        class="tag-input form-control"
+                        style="width: 100px;"
+                        type="text"
+                        v-focus
+                        v-if="scope.row.inputVisible"
+                        v-model="scope.row.inputValue"
+                        @blur="scope.row.inputVisible = false"
+                        @keydown.enter="enterFn(scope.row)"
+                        @keydown.esc="scope.row.inputValue = ''"
+                    />
+                    <button
+                        v-else
+                        style="display: block;"
+                        class="btn btn-primary btn-sm add-tag"
+                        @click="scope.row.inputVisible = true"
+                    >+Tag</button>
                     <span
                         v-for="(str, ind) in scope.row.tags"
                         :key="ind"
@@ -25,6 +42,7 @@
                 <td>
                     <button
                         class="btn btn-danger btn-sm"
+                        @click="removeBtn(scope.row.id)"
                     >删除</button>
                 </td>
             </template>
@@ -54,6 +72,20 @@ export default {
                 this.list = res.data.data
             })
         },
+        removeBtn (id) {
+            const index = this.list.findIndex(obj => obj.id === id);
+            this.list.splice(index, 1);
+        },
+        enterFn (obj) { // 回车
+            // console.log(obj.inputValue);
+            if (obj.inputValue.trim().length == 0) {
+                alert('请输入数据')
+                return
+            }
+
+            obj.tags.push(obj.inputValue) // 表单里的字符串状态tags数组
+            obj.inputValue = ""
+        }
     }
 }
 </script>
