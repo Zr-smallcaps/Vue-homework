@@ -3,21 +3,32 @@
         <!-- 表格标题区域 -->
         <thead>
             <tr>
-                <th>#</th>
+                <!-- <th>#</th>
                 <th>商品名称</th>
                 <th>价格</th>
                 <th>标签</th>
-                <th>操作</th>
+                <th>操作</th> -->
+                <slot name="header"></slot>
             </tr>
         </thead>
         <!-- 表格主体区域 -->
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>商品</td>
-                <td>998</td>
-                <td>xxx</td>
-                <td>xxx</td>
+            <tr
+                v-for="(obj, index) in arr"
+                :key="obj.id"
+            >
+                <!-- <td>{{ obj.id }}</td>
+                <td>{{ obj.goods_name }}</td>
+                <td>{{ obj.goods_price }}</td>
+                <td>{{ obj.tags }}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm">删除</button>
+                </td> -->
+                <slot
+                    name="tbody"
+                    :row="obj"
+                    :index="index"
+                ></slot>
             </tr>
         </tbody>
     </table>
@@ -25,15 +36,9 @@
 
 <script>
 export default {
-    name: 'MyTable'
-}
+    name: "MyTable",
+    props: {
+        arr: Array,
+    },
+};
 </script>
-
-
-<style scoped lang="less">
-.my-goods-list {
-    .badge {
-        margin-right: 5px;
-    }
-}
-</style>

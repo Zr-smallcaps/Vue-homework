@@ -5,6 +5,7 @@
             v-for="item in list"
             :key="item.componentName"
             :class="{current: item.componentName === currentIndex}"
+            @click="clickFn(item.componentName)"
         >
             <!-- 图标 -->
             <span
@@ -37,6 +38,12 @@ export default {
                 }
             }
         }
+    },
+    methods: {
+        clickFn(val) {
+            this.currentIndex = val;
+            this.$emit("changeTab", val)
+        }
     }
 }
 </script>
@@ -57,6 +64,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        cursor: pointer;
     }
 }
 

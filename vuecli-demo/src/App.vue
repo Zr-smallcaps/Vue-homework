@@ -1,16 +1,30 @@
 <template>
     <div>
-        <MyHeader></MyHeader>
-        <MyTabBar :list="tabList"></MyTabBar>
+        <MyHeader
+            :background="'blue'"
+            :fontColor="'white'"
+            title="TabBar案例"
+        ></MyHeader>
+        <div class="main">
+            <component :is="comName"></component>
+        </div>
+        <MyTabBar
+            :list="tabList"
+            @changeTab="changeTabFn"
+        ></MyTabBar>
     </div>
 </template>
 
 <script>
-import MyHeader from "./components/day_07/MyHeader"
-import MyTabBar from "./components/day_07/MyTabBar"
+import MyHeader from "./components/day_07/MyHeader";
+import MyTabBar from './components/day_07/MyTabBar'
+import MyGoodsList from './views/MyGoodsList'
+import MyGoodsSearch from './views/MyGoodsSearch'
+import MyUserInfo from './views/MyUserInfo'
 export default {
     data () {
         return {
+            comName: "MyGoodsList", // 默认显示的组件
             tabList: [ // 底部导航的数据
                 {
                     iconText: "icon-shangpinliebiao",
@@ -28,14 +42,27 @@ export default {
                     componentName: "MyUserInfo",
                 },
             ],
-        }
+        };
     },
     components: {
         MyHeader,
         MyTabBar,
+        MyGoodsList,
+        MyGoodsSearch,
+        MyUserInfo
+    },
+    methods: {
+        changeTabFn (val) {
+            this.comName = val; // MyTabBar里选出来的组件名赋予给is属性的comName
+            // 导致组件的切换
+        }
     }
-}
+};
 </script>
 
-<style>
+<style scoped>
+.main {
+    padding-top: 45px;
+    padding-bottom: 51px;
+}
 </style>
