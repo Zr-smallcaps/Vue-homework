@@ -44,6 +44,10 @@
                         class="btn btn-danger btn-sm"
                         @click="removeBtn(scope.row.id)"
                     >删除</button>
+                    <button
+                        class="btn btn-success btn-sm"
+                        v-has="1"
+                    >编辑</button>
                 </td>
             </template>
         </MyTable>
@@ -56,6 +60,7 @@ export default {
     data () {
         return {
             list: [],
+            types: ['0', '1', '2'],
         }
     },
     components: {
@@ -86,7 +91,7 @@ export default {
             obj.tags.push(obj.inputValue) // 表单里的字符串状态tags数组
             obj.inputValue = ""
         }
-    }
+    },
 }
 </script>
 

@@ -13,6 +13,12 @@ Vue.directive("focus", {
     el.focus();
   },
 });
+// 全局自定义指令
+Vue.directive("has", {
+    inserted(el, binding, vnode) {
+        el.style.display = binding.value == 1 ? 'block' : 'none';
+      },
+})
 
 new Vue({
   render: (h) => h(App),
