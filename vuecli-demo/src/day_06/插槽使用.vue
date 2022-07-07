@@ -20,7 +20,7 @@
                 <div v-if="scope.row.type == 1">
                     <img :src="scope.row.headImgUrl" alt="" width="40px">
                 </div>
-                <div v-if="scope.row.type == 2">
+                <div v-else>
                     {{ scope.row.headImgUrl }}
                 </div>
             </template>

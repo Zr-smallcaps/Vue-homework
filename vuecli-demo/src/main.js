@@ -1,12 +1,19 @@
 import Vue from "vue";
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';   
 import App from "./App.vue";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.css";
+import "./assets/fonts/iconfont.css";
 
 Vue.config.productionTip = false;
-Vue.use(ElementUI);
+axios.defaults.baseURL = "https://www.escook.cn";
+Vue.prototype.$axios = axios;
+// 全局指令
+Vue.directive("focus", {
+  inserted(el) {
+    el.focus();
+  },
+});
 
 new Vue({
-    el: '#app',
-    render: h => h(App)
-})
+  render: (h) => h(App),
+}).$mount("#app");
