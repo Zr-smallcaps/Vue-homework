@@ -62,6 +62,17 @@ const router = new VueRouter({
     // mode: "history"
 });
 
+// 例子: 判断用户是否登录, 是否决定去"我的音乐"/my
+const isLogin = true; // 登录状态（未登录）
+router.beforeEach((to, from, next) => {
+    if(to.path === "/my" && isLogin === false) {
+        alert("请登录")
+        next(false) // 阻止路由跳转
+    } else {
+        next() // 正常放行
+    }
+})
+
 Vue.config.productionTip = false;
 
 new Vue({
