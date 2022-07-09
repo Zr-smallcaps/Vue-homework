@@ -1,8 +1,8 @@
 <template>
     <div>
-        <p>拼团订单</p>
-        <p>购物车查看</p>
-        <router-view></router-view>
+        <p>订单一</p>
+        <p>订单二</p>
+        <p>订单三</p>
     </div>
 </template>
 
