@@ -5,6 +5,9 @@ import Find from "@/views/Find"
 import My from "@/views/My"
 import Part from "@/views/Part"
 import NotFound from "@/views/NotFound"
+import Recommend from "@/views/Second/Recommend"
+import Ranking from "@/views/Second/Ranking"
+import SongList from "@/views/Second/SongList"
 
 // 在vue中，使用使用vue的插件，都需要调用Vue.use()
 Vue.use(VueRouter)
@@ -16,14 +19,31 @@ const routes = [
     },
     {
         path: "/find",
+        name: "Find",
         component: Find,
+        children: [
+            {
+                path: "recommend",
+                component: Recommend,
+            },
+            {
+                path: "ranking",
+                component: Ranking,
+            },
+            {
+                path: "songlist",
+                component: SongList,
+            }
+        ]
     },
     {
         path: "/my",
+        name: "My",
         component: My,
     },
     {
         path: "/part",
+        name: "Part",
         component: Part,
     },
     {

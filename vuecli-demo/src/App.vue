@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="footer_wrap">
-            <router-link to="/find">发现音乐</router-link>
-            <router-link to="/my">我的音乐</router-link>
-            <router-link to="/part?name=小传">朋友 - 小传</router-link>
-            <router-link to="/part/小智">朋友 - 小智</router-link>
+            <span @click="btn('/find', 'Find')">发现音乐</span>
+            <span @click="btn('/my', 'My')">我的音乐</span>
+            <span @click="oneBtn">朋友-小传</span>
+            <span @click="twoBtn">朋友-小智</span>
         </div>
         <div class="top">
             <router-view></router-view>
@@ -13,7 +13,32 @@
 </template>
 
 <script>
-export default {};
+export default {
+    methods: {
+        btn (targetPath, targetName) {
+            this.$router.push({
+                path: targetPath,
+                name: targetName,
+            });
+        },
+        oneBtn() {
+            this.$router.push({
+                name: 'Part',
+                params: {
+                    username: '小传',
+                }
+            })
+        },
+        twoBtn() {
+            this.$router.push({
+                name: 'Part',
+                query: {
+                    name: '小智',
+                },
+            })
+        }
+    }
+};
 </script>
 
 <style scoped>
@@ -32,6 +57,15 @@ export default {};
     background: black;
 }
 .footer_wrap a {
+    flex: 1;
+    text-decoration: none;
+    padding: 20px 0;
+    line-height: 20px;
+    background-color: #333;
+    color: #ccc;
+    border: 1px solid black;
+}
+.footer_wrap span {
     flex: 1;
     text-decoration: none;
     padding: 20px 0;
