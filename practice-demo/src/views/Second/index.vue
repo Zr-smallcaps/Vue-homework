@@ -3,6 +3,7 @@
         <p>订单一</p>
         <p>订单二</p>
         <p>订单三</p>
+        <router-view></router-view>
     </div>
 </template>
 

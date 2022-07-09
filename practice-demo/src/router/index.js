@@ -5,6 +5,7 @@ import Home from '@/views/Home'
 import Order from '@/views/Order'
 import My from '@/views/My'
 import Second from '@/views/Second'
+import Third from '@/views/Second/Third'
 
 Vue.use(VueRouter)
 const routes = [
@@ -27,6 +28,13 @@ const routes = [
             {
                 path: 'second',
                 component: Second,
+                redirect: '/order/second/third',
+                children: [
+                    {
+                        path: 'third',
+                        component: Third,
+                    }
+                ]
             }
         ]
     },{
