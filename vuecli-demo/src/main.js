@@ -1,25 +1,36 @@
 import Vue from "vue";
 import App from "./App.vue";
-import axios from "axios";
-import "bootstrap/dist/css/bootstrap.css";
-import "./assets/fonts/iconfont.css";
+import VueRouter from 'vue-router'
+import Find from "@/views/Find"
+import My from "@/views/My"
+import Part from "@/views/Part"
+
+// 在vue中，使用使用vue的插件，都需要调用Vue.use()
+Vue.use(VueRouter)
+// 创建路由规则数组
+const routes = [
+    {
+        path: "/find",
+        component: Find,
+    },
+    {
+        path: "/my",
+        component: My,
+    },
+    {
+        path: "/part",
+        component: Part,
+    },
+]
+
+// 创建路由对象 -  传入规则
+const router = new VueRouter({
+    routes,
+});
 
 Vue.config.productionTip = false;
-axios.defaults.baseURL = "https://www.escook.cn";
-Vue.prototype.$axios = axios;
-// 全局指令
-Vue.directive("focus", {
-  inserted(el) {
-    el.focus();
-  },
-});
-// 全局自定义指令
-Vue.directive("has", {
-    inserted(el, binding, vnode) {
-        el.style.display = binding.value == 1 ? 'block' : 'none';
-      },
-})
 
 new Vue({
-  render: (h) => h(App),
+    router, //关联到Vue实例
+    render: (h) => h(App),
 }).$mount("#app");
