@@ -1,9 +1,10 @@
 <template>
     <div>
         <div class="footer_wrap">
-            <a href="#/find">发现音乐</a>
-            <a href="#/my">我的音乐</a>
-            <a href="#/part">朋友</a>
+            <router-link to="/find">发现音乐</router-link>
+            <router-link to="/my">我的音乐</router-link>
+            <router-link to="/part?name=小传">朋友 - 小传</router-link>
+            <router-link to="/part/小智">朋友 - 小智</router-link>
         </div>
         <div class="top">
             <router-view></router-view>
@@ -25,6 +26,10 @@ export default {};
     text-align: center;
     background-color: #333;
     color: #ccc;
+}
+.footer_wrap .router-link-active {
+    color: white;
+    background: black;
 }
 .footer_wrap a {
     flex: 1;

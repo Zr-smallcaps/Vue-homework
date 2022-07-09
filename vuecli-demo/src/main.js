@@ -21,6 +21,10 @@ const routes = [
         path: "/part",
         component: Part,
     },
+    {
+        path: "/part/:username",
+        component: Part,
+    },
 ]
 
 // 创建路由对象 -  传入规则
